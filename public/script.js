@@ -13,6 +13,7 @@ function getLocation() {
 function showPosition(position) {
     document.getElementById('location-infos').innerHTML = `Latitude: ${position.coords.latitude.toFixed(2)}
     <br>Longitude: ${position.coords.longitude.toFixed(2)}<br> Date: ${new Date(position.timestamp).toLocaleString('FR-fr')}`;
+    updateMap(position.coords.latitude, position.coords.longitude);
 }
 // Via Firebase (BaaS), on crée un bouton permettant de toggle la connexion et la déconnexion de manière anonyme.
 function toggleSignIn() {
@@ -124,9 +125,18 @@ function initApp() {
     document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
 }
 
+
+function updateMap(lat, long){
+    map = new google.maps.Map(document.getElementById('map'), {        
+        center: {lat: lat, lng: long},
+        scrollwheel: false,
+        zoom: 8
+    });
+}
+
 window.onload = function() {
     initApp();
-};
+};    
 
 function updateSlider(slideAmount)
 {

@@ -32,6 +32,9 @@ li a {
   position: absolute;
   top:80%;
 }
+#map { 
+   height: 100%; 
+}
 
 @media screen and (max-width: 640px) {
   #video, #canvas {

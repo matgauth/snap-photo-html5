@@ -34,6 +34,7 @@
                             <div id="container"></div>
                             <p>Sign in with your Google account below.</p>
                             <button disabled class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" id="sign-in">Sign in with Google</button>
+                            <div id="map"></div>
                             <div id="filters">
                                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="opacity">
                                         <input type="radio" id="opacity" class="mdl-radio__button" name="filter" value="2">
@@ -65,6 +66,10 @@
                 </div>
             </main>
         </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJKGBjG3JfUxqqBz4pH-ZWpJMVUXIvuc8&callback=initMap"
+    async defer></script>
+
         <video id="audio" src="0448.mp3" controls>
             Votre navigateur ne gère pas l'élément <code>video</code>.
         </video>
