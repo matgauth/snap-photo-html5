@@ -1,5 +1,7 @@
-const container = document.getElementById('user-details-container');
-const containerVideo = document.getElementById('user-video-container');
+// On récupère l'élément container du DOM déjà existant au chargement de la page.
+const container = document.getElementById('container');
+
+// Fonction permettant de vérifier si le navigateur est compatible avec la géolocalisation et de récupérer la position de l'utilisateur
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -7,35 +9,31 @@ function getLocation() {
         console.error("Geolocation not supported !")
     }
 }
-
+// Fonction permettant d'afficher la position de l'utilisateur
 function showPosition(position) {
     document.getElementById('location-infos').innerHTML = `Latitude: ${position.coords.latitude.toFixed(2)}
-    <br>Longitude: ${position.coords.longitude.toFixed(2)}`;
+    <br>Longitude: ${position.coords.longitude.toFixed(2)}<br> Date: ${new Date(position.timestamp).toLocaleString('FR-fr')}`;
 }
-
+// Via Firebase (BaaS), on crée un bouton permettant de toggle la connexion et la déconnexion de manière anonyme.
 function toggleSignIn() {
     if (!firebase.auth().currentUser) {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('https://www.googleapis.com/auth/plus.login');
-        firebase.auth().signInWithPopup(provider).then(function(result){
-            const token = result.credential.accessToken;
-            const user = result.user;
-            console.log(user);
-        }).catch(function(error) {
-            const errCode = error.code;
-            const errMsg = error.message;
-            if (errCode === 'auth/account-exists-with-different-credential') {
-               alert('You have already signed up with a different auth provider for that email.');
-            } else {
-               console.error(errMsg);
-            }
+        firebase.auth().signInAnonymously().catch(function(error) {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (errorCode === 'auth/operation-not-allowed') {
+            alert('You must enable Anonymous auth in the Firebase Console.');
+          } else {
+            console.error(error);
+          }
         });
     } else {
         firebase.auth().signOut();
-        containerVideo.removeChild(document.getElementById('video'));
+        container.removeChild(document.getElementById('video'));
         container.removeChild(document.getElementById('canvas'));
         container.removeChild(document.getElementById('snap'));
+        container.removeChild(document.getElementById('reset'));
         container.removeChild(document.getElementById('download'));
+        container.removeChild(document.getElementById('location-infos'));
     }
     document.getElementById('sign-in').disabled = true;
 }
@@ -62,16 +60,17 @@ function initApp() {
             reset.className = 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect';
             reset.setAttribute('id', 'reset');
 
-						const viseur = document.createElement('canvas');
-						containerVideo.appendChild(viseur);
+			const viseur = document.createElement('canvas');
+			container.appendChild(viseur);
             viseur.setAttribute('id', 'viseur');
-						var ctx = viseur.getContext("2d");
-						ctx.beginPath();
-						ctx.arc(150,75,40,0,2*Math.PI);
-						ctx.stroke();
+			var ctx = viseur.getContext("2d");
+			ctx.beginPath();
+			ctx.arc(150,75,40,0,2*Math.PI);
+			ctx.stroke();
 
             const video = document.createElement('video');
-            containerVideo.appendChild(video);
+            container.appendChild(video);
+            video.className = 'mdl-card mdl-shadow--2dp';
             video.setAttribute('id', 'video');
             video.setAttribute('autoplay', true);
 
@@ -84,11 +83,13 @@ function initApp() {
             signIn.textContent = 'Sign out';
 
             const context = canvas.getContext('2d');
-            const date = document.getElementById('date');
+
+            const locationInfos = document.createElement('p');
+            container.appendChild(locationInfos);
+            locationInfos.setAttribute('id', 'location-infos');
 
             snap.addEventListener("click", function() {
 	            context.drawImage(video, 0, 0, 640, 480);
-	            date.innerHTML =`Date : ${new Date(Date.now()).toLocaleString('FR-fr')}`;
                 getLocation();
             });
 
@@ -100,6 +101,7 @@ function initApp() {
 
             reset.addEventListener('click', function(e) {
                  context.clearRect(0, 0, canvas.width, canvas.height);
+                 document.getElementById('location-infos').textContent = null;
             });
 
 
@@ -113,7 +115,7 @@ function initApp() {
             }
         } else {
 
-            signIn.textContent = 'Sign in with Google';
+            signIn.textContent = 'Se connecter anonymement';
         }
         document.getElementById('sign-in').disabled = false;
     });

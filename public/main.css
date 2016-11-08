@@ -16,19 +16,25 @@ li a {
 .mdl-layout__header-row {
   padding: 0;
 }
-#user-details-container {
+#container {
   margin-top: 20px;
   line-height: 25px;
 }
-#signed-in {
-  font-weight: bold;
+#sign-in {
+  color: #ffffff;
 }
-#video {
-  width: 100%    !important;
+#video, #canvas {
+  width: 75%    !important;
   height: auto   !important;
 }
 #viseur {
   width: 100%;
   position: absolute;
   top:80%;
+}
+
+@media screen and (max-width: 640px) {
+  #video, #canvas {
+    width: 100% !important;
+  }
 }
