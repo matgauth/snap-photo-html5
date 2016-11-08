@@ -1,0 +1,34 @@
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+  text-align: center;
+}
+a {
+  text-decoration: none;
+}
+li a {
+  text-decoration: underline;
+  color: #0288d1;
+}
+.mdl-grid {
+  max-width: 1024px;
+  margin: auto;
+}
+.mdl-layout__header-row {
+  padding: 0;
+}
+#user-details-container {
+  margin-top: 20px;
+  line-height: 25px;
+}
+#signed-in {
+  font-weight: bold;
+}
+#video {
+  width: 100%    !important;
+  height: auto   !important;
+}
+#viseur {
+  width: 100%;
+  position: absolute;
+  top:80%;
+}
