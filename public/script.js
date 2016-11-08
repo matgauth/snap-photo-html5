@@ -127,10 +127,16 @@ function initApp() {
 
 
 function updateMap(lat, long){
-    map = new google.maps.Map(document.getElementById('map'), {        
-        center: {lat: lat, lng: long},
+     var myLatLng = {lat: lat, lng: long};
+    var map = new google.maps.Map(document.getElementById('map'), {        
+        center: myLatLng,
         scrollwheel: false,
-        zoom: 8
+        zoom: 10
+    });
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Your position'
     });
 }
 
