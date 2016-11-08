@@ -89,6 +89,8 @@ function initApp() {
             locationInfos.setAttribute('id', 'location-infos');
 
             snap.addEventListener("click", function() {
+                var v = document.getElementById("audio");
+                v.play();
 	            context.drawImage(video, 0, 0, 640, 480);
                 getLocation();
             });
@@ -125,3 +127,17 @@ function initApp() {
 window.onload = function() {
     initApp();
 };
+
+function updateSlider(slideAmount)
+{
+    if (document.getElementById('opacity').checked) {
+        var filtre = "opacity";
+    } else if(document.getElementById('invert').checked){
+        var filtre = "invert";
+    } else if(document.getElementById('sepia').checked){
+        var filtre = "sepia";
+    } else if(document.getElementById('saturate').checked){
+        var filtre = "saturate";
+    }
+    document.getElementById('canvas').style.filter = filtre+"("+slideAmount+"%)";
+}
