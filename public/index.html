@@ -36,37 +36,48 @@
                             <button disabled class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect" id="sign-in">Sign in with Google</button>
                             <div id="map"></div>
                             <div id="filters">
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="opacity">
-                                        <input type="radio" id="opacity" class="mdl-radio__button" name="filter" value="2">
-                                        <span class="mdl-radio__label">Opacity</span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="invert">
-                                        <input type="radio" id="invert" class="mdl-radio__button" name="filter" value="2">
-                                        <span class="mdl-radio__label">Invert</span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sepia">
-                                        <input type="radio" id="sepia" class="mdl-radio__button" name="filter" value="2">
-                                        <span class="mdl-radio__label">Sepia</span>
-                                    </label>
-                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="saturate">
-                                        <input type="radio" id="saturate" class="mdl-radio__button" name="filter" value="2">
-                                        <span class="mdl-radio__label">Saturate</span>
-                                    </label>
-                                    <input onChange="updateSlider(this.value)" 
+                                <label for="opacity">Opacity</label>
+                                <input id="opacity" 
+                                    onChange="updateSlider()" 
                                     class="mdl-slider mdl-js-slider"
-                                    id="inverSlider"
                                     type="range"
                                     min="0" 
                                     max="100" 
                                     value="0" 
-                                    tabindex="0">         
+                                    tabindex="0">
+                                <label for="invert">Invert</label>
+                                <input id="invert"
+                                    onChange="updateSlider()" 
+                                    class="mdl-slider mdl-js-slider"
+                                    type="range"
+                                    min="0" 
+                                    max="100" 
+                                    value="0" 
+                                    tabindex="0">
+                                <label for="sepia">Sepia</label>
+                                <input id="sepia"
+                                    onChange="updateSlider()" 
+                                    class="mdl-slider mdl-js-slider"
+                                    type="range"
+                                    min="0" 
+                                    max="100" 
+                                    value="0" 
+                                    tabindex="0">
+                                <label for="saturate">Saturate</label>
+                                <input id="saturate"
+                                    onChange="updateSlider()" 
+                                    class="mdl-slider mdl-js-slider"
+                                    type="range"
+                                    min="0" 
+                                    max="100" 
+                                    value="0" 
+                                    tabindex="0">       
                             </div>
                         </div>
                     </div>
                 </div>
             </main>
         </div>
-
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJKGBjG3JfUxqqBz4pH-ZWpJMVUXIvuc8&callback=initMap"
     async defer></script>
 

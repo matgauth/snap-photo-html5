@@ -144,16 +144,11 @@ window.onload = function() {
     initApp();
 };    
 
-function updateSlider(slideAmount)
+function updateSlider()
 {
-    if (document.getElementById('opacity').checked) {
-        var filtre = "opacity";
-    } else if(document.getElementById('invert').checked){
-        var filtre = "invert";
-    } else if(document.getElementById('sepia').checked){
-        var filtre = "sepia";
-    } else if(document.getElementById('saturate').checked){
-        var filtre = "saturate";
-    }
-    document.getElementById('canvas').style.filter = filtre+"("+slideAmount+"%)";
+    var invert = document.getElementById('invert').value;
+    var sepia = document.getElementById('sepia').value;
+    var saturate = document.getElementById('saturate').value;
+    var opacity = document.getElementById('opacity').value;
+    document.getElementById('canvas').style.filter = "invert("+invert+") sepia("+sepia+") saturate("+saturate+") opacity("+opacity+"%)";
 }
