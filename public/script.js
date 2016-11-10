@@ -1,4 +1,4 @@
-// On récupère l'élément container du DOM déjà existant au chargement de la page.
+﻿// On récupère l'élément container du DOM déjà existant au chargement de la page.
 const video = document.querySelector('video');
 const canvas = document.querySelector('#photo');
 const image = new Image();
@@ -70,7 +70,6 @@ function initApp() {
                 snap.setAttribute('hidden', true);
                 viseur.setAttribute('hidden', true);
                 reglage.removeAttribute('hidden');
-
                 const canvasBackup = canvas.toDataURL('image/png');
                 image.src = canvasBackup;
                 console.log("Capture done !");
