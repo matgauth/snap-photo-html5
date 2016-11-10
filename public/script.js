@@ -28,7 +28,7 @@ function getLocation() {
 }
 // Fonction permettant d'afficher la position de l'utilisateur
 function showPosition(position) {
-    const formatDate = new Date(position.timestamp).toLocaleString('FR-fr');
+    const formatDate = new Date(position.timestamp).toLocaleString(navigator.language);
     storeImage(position.coords.latitude, position.coords.longitude, formatDate);
 }
 
@@ -56,17 +56,20 @@ function initApp() {
 	            context.drawImage(video, 0, 0, 640, 480);
 
                 getLocation();
+
                 Notification.requestPermission().then(function(permission){
                     if (permission=="granted"){
-                        new Notification("New photo !",  {
-                            body: "New photo added"
+                        new Notification("Nouvelle photo !",  {
+                            body: "Nouvelle photo ajoutée sur la carte"
                         });
                     }
                 })
+
                 reset.removeAttribute('hidden');
                 download.removeAttribute('hidden');
                 snap.setAttribute('hidden', true);
                 viseur.setAttribute('hidden', true);
+                reglage.removeAttribute('hidden');
 
                 const canvasBackup = canvas.toDataURL('image/png');
                 image.src = canvasBackup;
@@ -91,9 +94,10 @@ function initApp() {
             });
 
             reset.addEventListener('click', function(e) {
-                 context.clearRect(0, 0, canvas.width, canvas.height);
-                 reset.setAttribute('hidden', true);
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                reset.setAttribute('hidden', true);
                 download.setAttribute('hidden', true);
+                reglage.setAttribute('hidden', true);
                 viseur.removeAttribute('hidden');
                 snap.removeAttribute('hidden');
                  console.log("reset !");
