@@ -1,11 +1,12 @@
 // On récupère l'élément container du DOM déjà existant au chargement de la page.
 const video = document.querySelector('video');
-const canvas = document.querySelector('canvas');
+const canvas = document.querySelector('#photo');
 const reset = document.querySelector('#reset');
 const download = document.querySelector('#download');
 const snap = document.querySelector('#snap');
 const locationInfos = document.querySelector('#location-infos');
 const dialog = document.querySelector('dialog');
+const viseur = document.querySelector('#viseur');
 
 if (! dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -28,6 +29,15 @@ function showPosition(position) {
 }
 
 function initApp() {
+            const contextViseur = viseur.getContext('2d');
+            var centerY = viseur.height / 2;
+            var centerX = viseur.width / 2;
+            var radius = 20;
+
+            contextViseur.beginPath();
+            contextViseur.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+            contextViseur.stroke();
+
             const context = canvas.getContext('2d');
 
             reset.style.display="none";
@@ -40,6 +50,7 @@ function initApp() {
                 download.style.display="inline-block";
                 snap.style.display="none";
                 dialog.showModal();
+                document.getElementById("viseur").style.zIndex="-101";
                 console.log("Capture done !");
             });
             dialog.querySelector('.close').addEventListener('click', function() {

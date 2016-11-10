@@ -23,12 +23,16 @@ video, canvas {
     z-index: -100;
     transform: translateX(-50%) translateY(-50%);
 }
+#viseur{
+    z-index: -99;
+}
 
 #snap, #reset, #download {
   margin-right: 12px;
 }
 
 footer {
+  z-index: 1;
   position:fixed;
   bottom:0;
   right:0;
