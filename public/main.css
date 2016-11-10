@@ -27,7 +27,7 @@ video, canvas {
     z-index: -99;
 }
 
-#snap, #reset, #download {
+#snap, #reset, #download, #mapButton, #reglage {
   margin-right: 12px;
 }
 
@@ -41,7 +41,7 @@ footer {
   opacity:0.8;
 }
 
-#map { 
+#map {
    height: 100%;
    width: 100%;
 }

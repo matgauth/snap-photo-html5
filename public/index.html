@@ -20,46 +20,31 @@
         </script>
     </head>
     <body>
-
-
-
-
-    <div class="mdl-layout mdl-js-layout">
-        <div class="mdl-layout__drawer" >
-            <nav class="mdl-navigation">
-                <div id="map"></div>
-            </nav>
-        </div>
         <main>
                 <canvas id="viseur" width="640" height="480"></canvas>
                 <video width="640" height="480" autoplay></video>
                 <canvas id="photo" width="640" height="480"></canvas>
-                <dialog class="mdl-dialog">
-                    <h4 class="mdl-dialog__title">Informations</h4>
-                    <div class="mdl-dialog__content">
-                        <p id="location-infos"></p>
-                    </div>
-                    <div class="mdl-dialog__actions">
-                        <button type="button" class="mdl-button close">Fermer</button>
-                    </div>
-                </dialog>
+                <div hidden id="map"></div>
             </main>
             <footer class="mdl-mega-footer">
                 <div class="mdl-mega-footer__middle-section">
                     <button id="snap" class="mdl-button mdl-js-button mdl-button--fab mdl-button--primary mdl-button--mini-fab">
                       <i class="material-icons">photo_camera</i>
                     </button>
-                    <a id="download" href="" class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
+                    <a id="download" hidden href="" class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
                       <i class="material-icons">file_download</i>
                     </a>
-                    <button id="reset" class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
+                    <button id="reset" hidden class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
                        <i class="material-icons">restore</i>
+                    </button>
+                    <button id="mapButton" class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
+                        <i class="material-icons">map</i>
                     </button>
                     <button id="reglage" class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
                        <i class="material-icons">color_lens</i>
                     </button>
                 </div>
-                <div>
+                <div hidden id="filters">
                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="invert">
                         <input type="checkbox" id="invert" class="mdl-switch__input" onchange="updateSlider();">
                         <span class="mdl-switch__label">Invert</span>
@@ -75,25 +60,27 @@
                     </label>
                     <label for="saturate">Saturate</label>
                     <input id="saturate"
-                        onChange="updateSlider()" 
+                        onChange="updateSlider()"
                         class="mdl-slider mdl-js-slider"
                         type="range"
-                        min="1" 
-                        max="100" 
-                        value="1" 
-                        tabindex="0">   
+                        min="1"
+                        max="100"
+                        value="1"
+                        tabindex="0">
                     <label for="saturate">Brightness</label>
                     <input id="brightness"
-                        onChange="updateSlider()" 
+                        onChange="updateSlider()"
                         class="mdl-slider mdl-js-slider"
                         type="range"
-                        min="1" 
-                        max="50" 
-                        value="1" 
-                        tabindex="0"> 
+                        min="1"
+                        max="50"
+                        value="1"
+                        tabindex="0">
                 </div>
             </footer>
     </div>
+     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
         <script type="text/javascript" src="./script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJKGBjG3JfUxqqBz4pH-ZWpJMVUXIvuc8&callback=initMap"
     async defer></script>

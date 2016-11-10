@@ -5,13 +5,18 @@ const image = new Image();
 const reset = document.querySelector('#reset');
 const download = document.querySelector('#download');
 const snap = document.querySelector('#snap');
-const locationInfos = document.querySelector('#location-infos');
-const dialog = document.querySelector('dialog');
+const mapButton = document.querySelector('#mapButton');
 const viseur = document.querySelector('#viseur');
+const filters = document.querySelector('#filters');
 
-if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-}
+
+const db = new Dexie("image_database");
+db.version(1).stores({
+   images: 'date,dataURL,lat,long'
+});
+db.open().catch(function (e) {
+   console.error(e);
+});
 
 // Fonction permettant de vérifier si le navigateur est compatible avec la géolocalisation et de récupérer la position de l'utilisateur
 function getLocation() {
@@ -24,9 +29,15 @@ function getLocation() {
 // Fonction permettant d'afficher la position de l'utilisateur
 function showPosition(position) {
     const formatDate = new Date(position.timestamp).toLocaleString('FR-fr');
-    locationInfos.innerHTML = `Latitude: ${position.coords.latitude.toFixed(2)}
-    <br>Longitude: ${position.coords.longitude.toFixed(2)}<br> Date: ${formatDate}`;
-    initMap(position.coords.latitude, position.coords.longitude);
+    storeImage(position.coords.latitude, position.coords.longitude, formatDate);
+}
+
+
+function storeImage(lat, long, date) {
+    const dataURL = canvas.toDataURL('image/png');
+    db.images.put({date, lat, long, dataURL}).catch(function(error) {
+       console.log(error);
+    });
 }
 
 function initApp() {
@@ -40,23 +51,37 @@ function initApp() {
             contextViseur.stroke();
 
             const context = canvas.getContext('2d');
-            reset.style.display="none";
-            download.style.display="none";
 
             snap.addEventListener("click", function() {
 	            context.drawImage(video, 0, 0, 640, 480);
+
                 getLocation();
-                reset.style.display="inline-block";
-                download.style.display="inline-block";
-                snap.style.display="none";
-                dialog.showModal();
-                document.getElementById("viseur").style.zIndex="-101";
+                Notification.requestPermission().then(function(permission){
+                    if (permission=="granted"){
+                        new Notification("New photo !",  {
+                            body: "New photo added"
+                        });
+                    }
+                })
+                reset.removeAttribute('hidden');
+                download.removeAttribute('hidden');
+                snap.setAttribute('hidden', true);
+                viseur.setAttribute('hidden', true);
+
                 const canvasBackup = canvas.toDataURL('image/png');
                 image.src = canvasBackup;
                 console.log("Capture done !");
             });
-            dialog.querySelector('.close').addEventListener('click', function() {
-                dialog.close();
+
+            mapButton.addEventListener("click", function(e){
+                if (map.hasAttribute('hidden')) {
+                    map.removeAttribute('hidden');
+                    viseur.setAttribute('hidden', true);
+                    initMap();
+                } else {
+                    map.setAttribute('hidden', true);
+                    viseur.removeAttribute('hidden');
+                }
             });
             download.addEventListener('click', function (e) {
                 const dataURL = canvas.toDataURL('image/png');
@@ -67,12 +92,19 @@ function initApp() {
 
             reset.addEventListener('click', function(e) {
                  context.clearRect(0, 0, canvas.width, canvas.height);
-                 locationInfos.textContent = null;
-                 reset.style.display="none";
-                 download.style.display="none";
-                 snap.style.display="inline-block";
-                 document.getElementById("viseur").style.zIndex="-99";
+                 reset.setAttribute('hidden', true);
+                download.setAttribute('hidden', true);
+                viseur.removeAttribute('hidden');
+                snap.removeAttribute('hidden');
                  console.log("reset !");
+            });
+
+            reglage.addEventListener('click', function(e) {
+                if (filters.hasAttribute('hidden')) {
+                    filters.removeAttribute('hidden');
+                } else {
+                    filters.setAttribute('hidden', true);
+                }
             });
 
             const mouse = {x: 0, y: 0};
@@ -134,25 +166,36 @@ function updateSlider()
     }
     var saturate = document.getElementById('saturate').value;
     var brightness = document.getElementById('brightness').value;
-    
+
     const context = canvas.getContext('2d');
     context.filter = "invert("+invert+") sepia("+sepia+") saturate("+saturate+") brightness("+brightness+") grayscale("+grayscale+")";
     context.drawImage(image, 0, 0, 640, 480);
-
 }
 
-function initMap(lat, long){
-    var myLatLng = {lat: Number(lat), lng: Number(long)};
-    var map = new google.maps.Map(document.getElementById('map'), {        
+function initMap(){
+    var myLatLng = {lat: 48.41, lng: -4.49};
+    var map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         scrollwheel: false,
         zoom: 12
     });
-    var marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: myLatLng,
-        title:"Hello World!"
-     });
+    var collection = db.images;
+    collection.each(function(image) {
+        var myLatLng = {lat: Number(image.lat), lng: Number(image.long)};
+        var marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            position: myLatLng
+        });
+        var infowindow = new google.maps.InfoWindow({
+            content: `
+                    <p>Votre photo le ${image.date}</p>
+                    <img width="150px" alt="votre photo" src="${image.dataURL}"/>
+                    `
+        });
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+    });
  }
