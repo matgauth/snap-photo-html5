@@ -93,13 +93,15 @@ function initApp() {
             });
 
             reset.addEventListener('click', function(e) {
+                resetFilters();
                 context.clearRect(0, 0, canvas.width, canvas.height);
                 reset.setAttribute('hidden', true);
                 download.setAttribute('hidden', true);
+                filters.setAttribute('hidden',true);
                 reglage.setAttribute('hidden', true);
                 viseur.removeAttribute('hidden');
                 snap.removeAttribute('hidden');
-                 console.log("reset !");
+                console.log("reset !");
             });
 
             reglage.addEventListener('click', function(e) {
@@ -173,6 +175,14 @@ function updateSlider()
     const context = canvas.getContext('2d');
     context.filter = "invert("+invert+") sepia("+sepia+") saturate("+saturate+") brightness("+brightness+") grayscale("+grayscale+")";
     context.drawImage(image, 0, 0, 640, 480);
+}
+
+function resetFilters(){
+    document.getElementById('saturate').value = 1;
+    document.getElementById('brightness').value = 1;
+    document.getElementById('grayscale').checked = false;
+    document.getElementById('invert').checked = false;
+    document.getElementById('sepia').checked = false;
 }
 
 function initMap(){
