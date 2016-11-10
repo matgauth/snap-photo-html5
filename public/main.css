@@ -2,39 +2,37 @@ html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
   text-align: center;
 }
-a {
-  text-decoration: none;
-}
-li a {
-  text-decoration: underline;
-  color: #0288d1;
-}
+
 .mdl-grid {
   max-width: 1024px;
   margin: auto;
 }
+
 .mdl-layout__header-row {
   padding: 0;
 }
-#container {
-  margin-top: 20px;
-  line-height: 25px;
-}
-#sign-in {
-  color: #ffffff;
-}
-#video, #canvas {
-  width: 75%    !important;
-  height: auto   !important;
-}
-#viseur {
-  width: 100%;
-  position: absolute;
-  top:80%;
+
+video, canvas {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
 }
 
-@media screen and (max-width: 640px) {
-  #video, #canvas {
-    width: 100% !important;
-  }
+#snap, #reset, #download {
+  margin-right: 12px;
+}
+
+footer {
+  position:fixed;
+  bottom:0;
+  right:0;
+  left:0;
+  background-color: #ffffff;
+  opacity:0.8;
 }
