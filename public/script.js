@@ -24,6 +24,7 @@ function showPosition(position) {
     const formatDate = new Date(position.timestamp).toLocaleString('FR-fr');
     locationInfos.innerHTML = `Latitude: ${position.coords.latitude.toFixed(2)}
     <br>Longitude: ${position.coords.longitude.toFixed(2)}<br> Date: ${formatDate}`;
+    initMap(position.coords.latitude, position.coords.longitude);
 }
 
 function initApp() {
@@ -115,3 +116,19 @@ function updateSlider(slideAmount)
     }
     grayscale(slideAmount);
 }
+
+function initMap(lat, long){
+    var myLatLng = {lat: Number(lat), lng: Number(long)};
+    var map = new google.maps.Map(document.getElementById('map'), {        
+        center: myLatLng,
+        scrollwheel: false,
+        zoom: 12
+    });
+    var marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: myLatLng,
+        title:"Hello World!"
+     });
+ }

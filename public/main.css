@@ -36,3 +36,8 @@ footer {
   background-color: #ffffff;
   opacity:0.8;
 }
+
+#map { 
+   height: 100%;
+   width: 100%;
+}
