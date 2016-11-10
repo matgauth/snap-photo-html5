@@ -1,6 +1,7 @@
 // On récupère l'élément container du DOM déjà existant au chargement de la page.
 const video = document.querySelector('video');
 const canvas = document.querySelector('#photo');
+const image = new Image();
 const reset = document.querySelector('#reset');
 const download = document.querySelector('#download');
 const snap = document.querySelector('#snap');
@@ -39,7 +40,6 @@ function initApp() {
             contextViseur.stroke();
 
             const context = canvas.getContext('2d');
-
             reset.style.display="none";
             download.style.display="none";
 
@@ -51,6 +51,8 @@ function initApp() {
                 snap.style.display="none";
                 dialog.showModal();
                 document.getElementById("viseur").style.zIndex="-101";
+                const canvasBackup = canvas.toDataURL('image/png');
+                image.src = canvasBackup;
                 console.log("Capture done !");
             });
             dialog.querySelector('.close').addEventListener('click', function() {
@@ -113,20 +115,30 @@ window.onload = function() {
     initApp();
 };
 
-function updateSlider(slideAmount)
+function updateSlider()
 {
-    const context = canvas.getContext('2d');
-    let filter;
-    if (document.getElementById('opacity').checked) {
-        filter = "grayscale";
-    } else if(document.getElementById('invert').checked){
-        filter = "invert";
-    } else if(document.getElementById('sepia').checked){
-        filter = "sepia";
-    } else if(document.getElementById('saturate').checked){
-        filter = "saturate";
+    if(document.getElementById('invert').checked){
+        var invert = 100;
+    } else {
+        var invert = 0;
     }
-    grayscale(slideAmount);
+    if(document.getElementById('sepia').checked){
+        var sepia = 100;
+    } else {
+        var sepia = 0;
+    }
+    if(document.getElementById('grayscale').checked){
+        var grayscale = 100;
+    } else {
+        var grayscale = 0;
+    }
+    var saturate = document.getElementById('saturate').value;
+    var brightness = document.getElementById('brightness').value;
+    
+    const context = canvas.getContext('2d');
+    context.filter = "invert("+invert+") sepia("+sepia+") saturate("+saturate+") brightness("+brightness+") grayscale("+grayscale+")";
+    context.drawImage(image, 0, 0, 640, 480);
+
 }
 
 function initMap(lat, long){

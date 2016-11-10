@@ -20,15 +20,17 @@
         </script>
     </head>
     <body>
-            <header class="mdl-layout__header mdl-layout__header--transparent">
-                <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title mdl-layout--large-screen-only">Snap Photo</span>
-                    <div class="mdl-layout-spacer"></div>
-                    <nav class="mdl-navigation">
-                    </nav>
-                </div>
-            </header>
-            <main>
+
+
+
+
+    <div class="mdl-layout mdl-js-layout">
+        <div class="mdl-layout__drawer" >
+            <nav class="mdl-navigation">
+                <div id="map"></div>
+            </nav>
+        </div>
+        <main>
                 <canvas id="viseur" width="640" height="480"></canvas>
                 <video width="640" height="480" autoplay></video>
                 <canvas id="photo" width="640" height="480"></canvas>
@@ -37,7 +39,6 @@
                     <div class="mdl-dialog__content">
                         <p id="location-infos"></p>
                     </div>
-                    <div id="map"></div>
                     <div class="mdl-dialog__actions">
                         <button type="button" class="mdl-button close">Fermer</button>
                     </div>
@@ -54,9 +55,45 @@
                     <button id="reset" class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
                        <i class="material-icons">restore</i>
                     </button>
+                    <button id="reglage" class="mdl-button mdl-js-button mdl-button--fab mdl-button--accent mdl-button--mini-fab">
+                       <i class="material-icons">color_lens</i>
+                    </button>
+                </div>
+                <div>
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="invert">
+                        <input type="checkbox" id="invert" class="mdl-switch__input" onchange="updateSlider();">
+                        <span class="mdl-switch__label">Invert</span>
+                    </label>
+
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="sepia">
+                        <input type="checkbox" id="sepia" class="mdl-switch__input" onchange="updateSlider();">
+                        <span class="mdl-switch__label">Sepia</span>
+                    </label>
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="grayscale">
+                        <input type="checkbox" id="grayscale" class="mdl-switch__input" onchange="updateSlider();">
+                        <span class="mdl-switch__label">Black&White</span>
+                    </label>
+                    <label for="saturate">Saturate</label>
+                    <input id="saturate"
+                        onChange="updateSlider()" 
+                        class="mdl-slider mdl-js-slider"
+                        type="range"
+                        min="1" 
+                        max="100" 
+                        value="1" 
+                        tabindex="0">   
+                    <label for="saturate">Brightness</label>
+                    <input id="brightness"
+                        onChange="updateSlider()" 
+                        class="mdl-slider mdl-js-slider"
+                        type="range"
+                        min="1" 
+                        max="50" 
+                        value="1" 
+                        tabindex="0"> 
                 </div>
             </footer>
-
+    </div>
         <script type="text/javascript" src="./script.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJKGBjG3JfUxqqBz4pH-ZWpJMVUXIvuc8&callback=initMap"
     async defer></script>
