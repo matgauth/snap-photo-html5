@@ -67,7 +67,7 @@ function initApp() {
                 download.removeAttribute('hidden');
                 snap.setAttribute('hidden', true);
                 viseur.setAttribute('hidden', true);
-
+                document.getElementById("viseur").style.zIndex="-99";
                 const canvasBackup = canvas.toDataURL('image/png');
                 image.src = canvasBackup;
                 console.log("Capture done !");
