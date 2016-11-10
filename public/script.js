@@ -69,6 +69,7 @@ function initApp() {
                  reset.style.display="none";
                  download.style.display="none";
                  snap.style.display="inline-block";
+                 document.getElementById("viseur").style.zIndex="-99";
                  console.log("reset !");
             });
 
