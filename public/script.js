@@ -63,8 +63,8 @@ function updateSlider(e) {
 }
 
 function resetFilters() {
-    document.getElementById('saturate').value = 1;
-    document.getElementById('brightness').value = 1;
+    document.getElementById('saturate').MaterialSlider.change(1);
+    document.getElementById('brightness').MaterialSlider.change(1);
     document.getElementById('grayscale').checked = false;
     document.getElementById('invert').checked = false;
     document.getElementById('sepia').checked = false;
