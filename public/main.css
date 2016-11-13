@@ -25,6 +25,8 @@ video,#sights, #canvas{
 }
 #sights {
     z-index: -99;
+    min-width: 5%;
+    min-height: 5%;
 }
 
 #map {

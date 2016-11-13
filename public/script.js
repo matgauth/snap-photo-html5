@@ -160,14 +160,17 @@ function showHideSettings() {
 }
 
 function addSights() {
-    const image = new Image();
-    image.src = 'http://www.earrelaphant.com/wp-content/uploads/2016/03/sniper-297661_640-218x218.png';
-    image.onload = function () {
-        sights.getContext('2d').drawImage(image,
-            sights.width / 2 - image.width / 2,
-            sights.height / 2 - image.height / 2
-        );
-    }
+        const contextViseur = sights.getContext('2d');
+        var centerY = sights.height / 2;
+        var centerX = sights.width / 2;
+        var radius = 40;
+        contextViseur.beginPath();
+        contextViseur.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
+        contextViseur.moveTo(100,75);
+        contextViseur.lineTo(200,75);
+        contextViseur.moveTo(150,25);
+        contextViseur.lineTo(150,125);
+        contextViseur.stroke();
 }
 
 function initApp() {
