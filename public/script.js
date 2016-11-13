@@ -124,11 +124,15 @@ function onClickSnap() {
 function showHideMap() {
     if (map.hasAttribute('hidden')) {
         initMap();
+        snap.removeEventListener("click", onClickSnap, false);
+        snap.addEventListener("click", showHideMap, false);
         map.removeAttribute('hidden');
         video.setAttribute('hidden', true);
         sights.setAttribute('hidden', true);
         canvas.setAttribute('hidden', true);
     } else {
+        snap.addEventListener("click", onClickSnap, false);
+        snap.removeEventListener("click", showHideMap, false);
         sights.removeAttribute('hidden');
         map.setAttribute('hidden', true);
         video.removeAttribute('hidden');
