@@ -103,6 +103,7 @@ function initMap() {
 function onClickSnap() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
+    document.getElementById("sights").style.zIndex = -100;
     canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
     getLocation(storeImage);
@@ -128,8 +129,8 @@ function showHideMap() {
         sights.setAttribute('hidden', true);
         canvas.setAttribute('hidden', true);
     } else {
-        map.setAttribute('hidden', true);
         sights.removeAttribute('hidden');
+        map.setAttribute('hidden', true);
         video.removeAttribute('hidden');
         canvas.removeAttribute('hidden');
     }
@@ -137,6 +138,7 @@ function showHideMap() {
 
 function onClickReset() {
     resetFilters();
+    document.getElementById("sights").style.zIndex = -99;
     canvas.getContext('2d').clearRect(0, 0, video.videoWidth, video.videoHeight);
     reset.setAttribute('hidden', true);
     canvas.setAttribute('hidden', true);
