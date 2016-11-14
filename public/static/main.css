@@ -3,6 +3,11 @@ html, body {
   text-align: center;
 }
 
+ul {
+  text-align: justify;
+  list-style: none;
+}
+
 .mdl-grid {
   max-width: 1024px;
   margin: auto;
@@ -12,7 +17,7 @@ html, body {
   padding: 0;
 }
 
-video,#sights, #canvas{ 
+video,#sights, #canvas{
     position: fixed;
     top: 50%;
     left: 50%;

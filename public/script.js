@@ -96,6 +96,10 @@ function initMap() {
                 content: `
                     <p>Votre photo le ${image.date}</p>
                     <img width="150px" alt="votre photo" src="${image.dataURL}"/>
+                    <ul>
+                        <li>Latitude: ${image.lat.toFixed(2)}</li>
+                        <li>longitude: ${image.long.toFixed(2)}</li>
+                    <ul>
                     `
             });
             marker.addListener('click', function () {
@@ -177,17 +181,17 @@ function showHideSettings() {
 
 // Fonction qui permet de dessiner le viseur sur la prise video
 function addSights() {
-        const contextViseur = sights.getContext('2d');
-        var centerY = sights.height / 2;
-        var centerX = sights.width / 2;
-        var radius = 40;
-        contextViseur.beginPath();
-        contextViseur.arc(centerX, centerY, radius, 0, 2 * Math.PI, true); // Dessine le cercle
-        contextViseur.moveTo(100,75);
-        contextViseur.lineTo(200,75);                                      // Dessine la première ligne 
-        contextViseur.moveTo(150,25);
-        contextViseur.lineTo(150,125);                                     // Dessine la seconde ligne
-        contextViseur.stroke();
+    const contextViseur = sights.getContext('2d');
+    var centerY = sights.height / 2;
+    var centerX = sights.width / 2;
+    var radius = 40;
+    contextViseur.beginPath();
+    contextViseur.arc(centerX, centerY, radius, 0, 2 * Math.PI, true); // Dessine le cercle
+    contextViseur.moveTo(100, 75);
+    contextViseur.lineTo(200, 75);                                      // Dessine la première ligne
+    contextViseur.moveTo(150, 25);
+    contextViseur.lineTo(150, 125);                                     // Dessine la seconde ligne
+    contextViseur.stroke();
 }
 
 // Initialise l'application
