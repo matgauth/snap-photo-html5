@@ -109,13 +109,21 @@ function initMap() {
     });
 }
 
+function playAudio(e) {
+    e.preventDefault();
+    console.log('Playing audio');
+    const audio = new Audio('static/snap.wav');
+    audio.play();
+}
+
 // Fonction appelé lors de l'appuie sur l'icone capture
-function onClickSnap() {
+function onClickSnap(e) {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     document.getElementById("sights").style.zIndex = -100;
     canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 
+    playAudio(e);
     getLocation(storeImage);
     notificationPermission();
 
