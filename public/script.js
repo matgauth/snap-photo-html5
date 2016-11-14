@@ -27,6 +27,7 @@ function getLocation(cb) {
     }
 }
 
+// Fonction permettant l'enregistrement des photos
 function storeImage(position) {
     const dataURL = canvas.toDataURL('image/png');
     const date = new Date(position.timestamp).toLocaleString(navigator.language);
@@ -37,6 +38,7 @@ function storeImage(position) {
     });
 }
 
+// Fonction de demande des droits pour les Notifications
 function notificationPermission() {
     Notification.requestPermission().then(function (permission) {
         if (permission == "granted") {
@@ -48,6 +50,7 @@ function notificationPermission() {
     })
 }
 
+// Fonction qui récupère les valeurs des filtres et les applique à la photo capturée
 function updateSlider(e) {
     if (e.target !== e.currentTarget) {
         let invert = document.getElementById('invert').checked ? 100 : 0;
@@ -62,6 +65,7 @@ function updateSlider(e) {
     e.stopPropagation();
 }
 
+// Fonction qui réinitialise les filtres
 function resetFilters() {
     document.getElementById('saturate').MaterialSlider.change(1);
     document.getElementById('brightness').MaterialSlider.change(1);
@@ -70,6 +74,7 @@ function resetFilters() {
     document.getElementById('sepia').checked = false;
 }
 
+// Fonction qui initialise la carte GoogleMap
 function initMap() {
     const collection = db.images;
     getLocation(function (position) {
@@ -100,6 +105,7 @@ function initMap() {
     });
 }
 
+// Fonction appelé lors de l'appuie sur l'icone capture
 function onClickSnap() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -121,6 +127,7 @@ function onClickSnap() {
     console.log("Capture done !");
 }
 
+// Fonction permettant de gérer l'affichage de la carte
 function showHideMap() {
     if (map.hasAttribute('hidden')) {
         initMap();
@@ -140,6 +147,7 @@ function showHideMap() {
     }
 }
 
+// Fonction appelé lors du click sur le boutton reset. Reviens à la capture
 function onClickReset() {
     resetFilters();
     document.getElementById("sights").style.zIndex = -99;
@@ -154,6 +162,7 @@ function onClickReset() {
     console.log("reset !");
 }
 
+// Fonction appelé lors du click sur le boutton téléchargé. Télécharge l'image avec les filtres appliqués
 function onClickDownload() {
     const dataURL = canvas.toDataURL('image/png');
     download.download = "photo.png";
@@ -161,37 +170,36 @@ function onClickDownload() {
     console.log("Downloading...");
 }
 
+// Fonction qui permet de gérer l'affichage des réglages des filtres
 function showHideSettings() {
     filters.hasAttribute('hidden') ? filters.removeAttribute('hidden') : filters.setAttribute('hidden', true);
 }
 
+// Fonction qui permet de dessiner le viseur sur la prise video
 function addSights() {
         const contextViseur = sights.getContext('2d');
         var centerY = sights.height / 2;
         var centerX = sights.width / 2;
         var radius = 40;
         contextViseur.beginPath();
-        contextViseur.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
+        contextViseur.arc(centerX, centerY, radius, 0, 2 * Math.PI, true); // Dessine le cercle
         contextViseur.moveTo(100,75);
-        contextViseur.lineTo(200,75);
+        contextViseur.lineTo(200,75);                                      // Dessine la première ligne 
         contextViseur.moveTo(150,25);
-        contextViseur.lineTo(150,125);
+        contextViseur.lineTo(150,125);                                     // Dessine la seconde ligne
         contextViseur.stroke();
 }
 
+// Initialise l'application
 function initApp() {
-    addSights();
+    addSights(); // Ajoute le viseur
 
+    // Ajout des listener sur les bouttons.
     snap.addEventListener("click", onClickSnap, false);
-
     mapButton.addEventListener("click", showHideMap, false);
-
     download.addEventListener('click', onClickDownload, false);
-
     reset.addEventListener('click', onClickReset, false);
-
     reglage.addEventListener('click', showHideSettings, false);
-
     filters.addEventListener('change', updateSlider, false);
 
     const mouse = { x: 0, y: 0 };
