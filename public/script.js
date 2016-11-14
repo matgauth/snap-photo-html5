@@ -206,7 +206,7 @@ function initApp() {
     reglage.addEventListener('click', showHideSettings, false);
     filters.addEventListener('change', updateSlider, false);
 
-    const mouse = { x: 0, y: 0 };
+    const mouse = { x: -0, y: 0 };
     const context = canvas.getContext('2d');
     context.lineWidth = 5;
     context.lineJoin = 'round';
@@ -214,8 +214,8 @@ function initApp() {
     context.strokeStyle = 'blue';
 
     canvas.addEventListener('mousemove', function (e) {
-        mouse.x = e.pageX - this.offsetLeft;
-        mouse.y = e.pageY - this.offsetTop;
+        mouse.x = e.pageX - this.offsetLeft + canvas.width/2;
+        mouse.y = e.pageY - this.offsetTop + canvas.height/2;
     }, false);
 
     canvas.addEventListener('mousedown', function (e) {
