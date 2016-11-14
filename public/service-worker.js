@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["0448.mp3","d633388f7a149b0939a903f2a4981d66"],["index.html","6a41aa3361999d0462c4ffb42d4cc533"],["main.css","649e35bd11475939a2211f46b8ba7ba8"],["script.js","4a9a261650c8bad802a08a6097ac31ed"]];
+var precacheConfig = [["0448.mp3","d633388f7a149b0939a903f2a4981d66"],["favicon.ico","4d198a56786a3780ac74831c2c3040d2"],["icons/mipmap-hdpi/ic_launcher.png","0fb4b67dbc373a7fd5d2fd13862bc43b"],["icons/mipmap-mdpi/ic_launcher.png","1e87a3895b6351048b3e89ef01000c1d"],["icons/mipmap-xhdpi/ic_launcher.png","d59c7bf313eecb0274f4701d3a7a065f"],["icons/mipmap-xxhdpi/ic_launcher.png","6416643abd7cb062a1f5ed2608096b80"],["icons/mipmap-xxxhdpi/ic_launcher.png","14f773486f0ef9ba663f120f2196acf9"],["index.html","8d5b9e32d8994c289f2ac1a3ece274bc"],["main.css","2e9d9553ebd94744703fc15c8ede8dae"],["manifest.json","0b96c464911ae55f4471e6864dca236e"],["notif.png","0fb4b67dbc373a7fd5d2fd13862bc43b"],["script.js","87818edf30e3531f14729e557b09d7fa"]];
 var cacheName = 'sw-precache-v2-sw-precache-' + (self.registration ? self.registration.scope : '');
 
 
@@ -140,10 +140,10 @@ self.addEventListener('install', function(event) {
         );
       });
     }).then(function() {
-
+      
       // Force the SW to transition from installing -> active state
       return self.skipWaiting();
-
+      
     })
   );
 });
@@ -163,9 +163,9 @@ self.addEventListener('activate', function(event) {
         );
       });
     }).then(function() {
-
+      
       return self.clients.claim();
-
+      
     })
   );
 });
