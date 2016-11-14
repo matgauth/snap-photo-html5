@@ -115,7 +115,7 @@ function onClickSnap() {
     canvas.height = video.videoHeight;
     document.getElementById("sights").style.zIndex = -100;
     canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-
+    canvas.style.zIndex = 0;
     getLocation(storeImage);
     notificationPermission();
 
